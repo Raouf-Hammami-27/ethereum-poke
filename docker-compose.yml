@@ -1,0 +1,52 @@
+version: '3'
+services:
+  nginx:
+    image: nginx:latest
+    container_name: ng01
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./sc01:/sc01
+      - ./config/nginx:/etc/nginx/conf.d
+    depends_on:
+      - web
+  web:
+    build: .
+    container_name: sc01
+    command: sh ./web.sh
+    volumes:
+      - .:/sc01
+    expose:
+      - "8000"
+
+  db:
+    image: postgres:latest
+    container_name: ps01
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+
+  eth:
+    build: .
+    container_name: eth01
+    command: sh ./ethereum.sh
+    environment:
+      DEBIAN_FRONTEND: noninteractive
+    volumes:
+    - .:/eth01
+    expose:
+      - "8545"
+    networks:
+      vpcbr:
+        ipv4_address: 172.10.0.10
+
+networks:
+    vpcbr:
+        driver: bridge
+        driver_opts:
+          com.docker.network.enable_ipv6: "false"
+        ipam:
+          config:
+          - subnet: 172.10.0.0/16
