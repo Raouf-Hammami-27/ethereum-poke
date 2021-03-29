@@ -83,7 +83,7 @@ pycairo==1.17.1
 pycparser==2.18
 git+https://github.com/Legrandin/pycryptodome
 pyethash==0.1.27
-Pygments==2.2.0
+Pygments==2.7.4
 pysha3==1.0.2
 pytest==3.7.3
 pytest-forked==0.2
