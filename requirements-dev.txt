@@ -29,7 +29,7 @@ djangorestframework==3.8.2
 djangorestframework-jwt==1.11.0
 docopt==0.6.2
 eth-abi==1.2.0
-eth-account==0.3.0
+eth-account==0.5.9
 eth-bloom
 eth-hash
 eth-keyfile
